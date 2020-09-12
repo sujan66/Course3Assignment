@@ -12,12 +12,14 @@ original dataset : [UCI HAR Dataset](http://archive.ics.uci.edu/ml/datasets/Huma
 
 ## Tidy_Data.txt
 
-- subjectId : ID of the individual among the 30 volunteers. [Integer]
-- Activity : activities performed for each readings. Grouped by subjectId. [Factor]
+dim : 180 X 68
+
+- subjectId : ID of the individual among the 30 volunteers. [Integer] [column 1]
+- Activity : activities performed for each readings. Grouped by subjectId. [Factor] [column 2]
 - The remaining variables are the mean and standard deviation of the triaxial accelerometer and
     gyroscope readings of both the time and frequency domain variables, their corresponding
     magnitudes of the three-dimensional signals and excluding the mean frequency and angle
-    variables. The variables are grouped by Activity variable. [Character]
+    variables. The variables are grouped by Activity variable. [Character] [column 3 : 68]
   - tBodyAcc-mean()-X           
   - tBodyAcc-mean()-Y
   - tBodyAcc-mean()-Z
@@ -100,21 +102,22 @@ original dataset : [UCI HAR Dataset](http://archive.ics.uci.edu/ml/datasets/Huma
   - X_train : The X_train.txt file
   - Y_train : The Y_train.text file
   
-- X_dataset : Data table containing the test and train readings [data.frame]
-- Y_dataset : Data table containing the test and train activity label IDs [data.frame]
-- subject_dataset : Data table conatining the test and train subject IDs [data.frame]
+- X_dataset : Data table containing the test and train readings [data.frame] [dim : 10299 X 561]
+- Y_dataset : Data table containing the test and train activity label IDs [data.frame] [dim : 10299 X 1]
+- subject_dataset : Data table conatining the test and train subject IDs [data.frame] [dim : 10299 X 1]
 
-- var_names : vector containing the features or variables of readings [Character]
-- act_labs : vector containing the activities performed [Character]
+- var_names : vector containing the features or variables of readings [Character] [len : 561]
+- act_labs : vector containing the activities performed [Character] [len : 6]
 
 - mean_std_indices : vector containing the indices of the variable names in var_name with mean() and
-                     std() readings [Integer]
+                     std() readings [Integer] [len : 66]
 
 - tidy_data1 : Subset of the X_dataset containing the variables corresponding to the
-               mean_std_indices [data.frame]
+               mean_std_indices [data.frame] [dim : 10299 X 66]
 - tidy_data2 : data table containing subject_dataset, Y_dataset and tidy_data values [data.frame]
+               [dim : 10299 X 68]
 - tidy_data3 : data table containing the average values of the readings grouped by subjectId and
-               Activity
+               Activity [dim : 180 X 68]
 
 
 ## util.R
@@ -159,5 +162,3 @@ original dataset : [UCI HAR Dataset](http://archive.ics.uci.edu/ml/datasets/Huma
   
 - tidy_data3 is obtained by grouping tidy_data2 by subjectId and activity using group_by function
   and averaging the reading values by the groups created using summarize method.
-  
--
